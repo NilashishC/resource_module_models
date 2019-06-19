@@ -24,7 +24,7 @@
 # set interfaces loopback lo
 #
 - name: Replace device configurations of listed LAGs with provided configurations
-  vyos_lag:
+  vyos_lag_interfaces:
     config:
       - name: bond0
         mode: xor-hash

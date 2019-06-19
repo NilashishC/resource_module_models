@@ -24,7 +24,7 @@
 # set interfaces loopback lo
 
 - name: Delete Link Aggregation Groups from the device
-  vyos_lag:
+  vyos_lag_interfaces:
     config:
       - name: bond0
       - name: bond1

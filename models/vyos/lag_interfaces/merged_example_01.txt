@@ -17,7 +17,7 @@
 # set interfaces loopback lo
 
 - name: Merge provided configuration with device configuration
-  vyos_lag:
+  vyos_lag_interfaces:
     config:
       - name: bond0
         mode: 802.3ad

@@ -24,7 +24,7 @@
 # set interfaces loopback lo
 
 - name: Overrides all device configuration with provided configuration
-  vyos_lag:
+  vyos_lag_interfaces:
     config:
       - name: bond3
         mode: active-backup
