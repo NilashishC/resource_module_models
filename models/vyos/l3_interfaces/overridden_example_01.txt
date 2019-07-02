@@ -3,27 +3,22 @@
 # Before state
 # --------------
 #
-# vyos@vyos-appliance:~$ show configuration commands | grep eth
+# vyos@vyos:~$ show configuration commands | grep inter
+# set interfaces bonding bond0 address '192.0.0.11/24'
 # set interfaces ethernet eth0 address 'dhcp'
-# set interfaces ethernet eth0 duplex 'auto'
-# set interfaces ethernet eth0 hw-id '08:00:27:30:f0:22'
-# set interfaces ethernet eth0 smp-affinity 'auto'
-# set interfaces ethernet eth0 speed 'auto'
-# set interfaces ethernet eth1 hw-id '08:00:27:EA:0F:B9'
-# set interfaces ethernet eth1 address '192.0.2.14/24'
-# set interfaces ethernet eth2 address '192.0.2.10/24'
-# set interfaces ethernet eth2 address '192.0.2.11/24'
-# set interfaces ethernet eth2 address '2001:db8::10/32'
-# set interfaces ethernet eth2 address '2001:db8::11/32'
-# set interfaces ethernet eth2 hw-id '08:00:27:c2:98:23'
-# set interfaces ethernet eth3 address '198.51.100.10/24'
-# set interfaces ethernet eth3 hw-id '08:00:27:43:70:8c'
-# set interfaces ethernet eth3 vif 101 address '198.51.100.130/25'
+# set interfaces ethernet eth0 address 'dhcpv6'
+# set interfaces ethernet eth0 hw-id '08:00:27:e9:f6:02'
+# set interfaces ethernet eth2 address '192.0.0.22/24'
+# set interfaces ethernet eth2 hw-id '08:00:27:c6:c1:3f'
+# set interfaces ethernet eth3 address '203.0.113.65/26'
+# set interfaces ethernet eth3 hw-id '08:00:27:38:bc:3f'
+# set interfaces ethernet eth3 vif 101 address '192.0.2.71/28'
 # set interfaces ethernet eth3 vif 101 address '198.51.100.131/25'
-# set interfaces ethernet eth3 vif 102 address '2001:db8:4000::3/34'
-# set interfaces ethernet eth3 vif 102 address '2001:db8:4000::2/34' 
-
-- name: Overrides all device configuration with provided configuration
+# set interfaces ethernet eth3 vif 102 address '2001:db8:1000::5/38'
+# set interfaces ethernet eth3 vif 102 address '2001:db8:1400::3/38'
+# set interfaces loopback lo
+#
+ - name: Overrides all device configuration with provided configuration
   vyos_l3_interfaces:
     config:
       - name: eth0
@@ -32,20 +27,127 @@
         ipv6: 
           - address: dhcpv6
     state: overridden
-
+#
+#
+# ------------------------
+# Module Execution Results
+# ------------------------
+#
+# "before": [
+#        {
+#            "ipv4": [
+#                {
+#                    "address": "203.0.113.65/26"
+#                }
+#            ], 
+#            "name": "eth3", 
+#            "vifs": [
+#                {
+#                    "ipv6": [
+#                        {
+#                            "address": "2001:db8:1000::5/38"
+#                        }, 
+#                        {
+#                            "address": "2001:db8:1400::3/38"
+#                        }
+#                    ], 
+#                    "vlan_id": "102"
+#                }, 
+#                {
+#                    "ipv4": [
+#                        {
+#                            "address": "192.0.2.71/28"
+#                        }, 
+#                        {
+#                            "address": "198.51.100.131/25"
+#                        }
+#                    ], 
+#                    "vlan_id": "101"
+#                }
+#            ]
+#        }, 
+#        {
+#            "ipv4": [
+#                {
+#                    "address": "192.0.0.11/24"
+#                }
+#            ], 
+#            "name": "bond0"
+#        }, 
+#        {
+#            "ipv4": [
+#                {
+#                    "address": "192.0.0.22/24"
+#                }
+#            ], 
+#            "name": "eth2"
+#        }, 
+#        {
+#            "ipv4": [
+#                {
+#                    "address": "dhcp"
+#                }
+#
+#            ], 
+#            "ipv6": [
+#                {
+#                    "address": "dhcpv6"
+#                }
+#            ], 
+#            "name": "eth0"
+#        }
+#    ]
+# "commands": [
+#        "delete interfaces ethernet eth3 address", 
+#        "delete interfaces ethernet eth3 vif 102 address", 
+#        "delete interfaces ethernet eth3 vif 101 address", 
+#        "delete interfaces bonding bond0 address", 
+#        "delete interfaces ethernet eth2 address"
+#    ]    
+# "after": [
+#        {
+#            "name": "eth3", 
+#            "vifs": [
+#                {
+#                    "vlan_id": "102"
+#                }, 
+#                {
+#                    "vlan_id": "101"
+#                }
+#            ]
+#        }, 
+#        {
+#            "name": "bond0"
+#        }, 
+#        {
+#            "name": "eth2"
+#        }, 
+#        {
+#            "ipv4": [
+#                {
+#                    "address": "dhcp"
+#                }
+#            ], 
+#            "ipv6": [
+#                {
+#                    "address": "dhcpv6"
+#                }
+#            ], 
+#            "name": "eth0"
+#        }
+#
+#    ]
+#
 # After state
 # ------------
 #
-# vyos@vyos-appliance:~$ show configuration commands | grep eth
+# vyos@vyos:~$ show configuration commands | grep inter
+# set interfaces bonding bond0
 # set interfaces ethernet eth0 address 'dhcp'
 # set interfaces ethernet eth0 address 'dhcpv6'
-# set interfaces ethernet eth0 duplex 'auto'
-# set interfaces ethernet eth0 hw-id '08:00:27:30:f0:22'
-# set interfaces ethernet eth0 smp-affinity 'auto'
-# set interfaces ethernet eth0 speed 'auto'
-# set interfaces ethernet eth1 hw-id '08:00:27:EA:0F:B9'
-# set interfaces ethernet eth2 hw-id '08:00:27:c2:98:23'
-# set interfaces ethernet eth3 hw-id '08:00:27:43:70:8c'
+# set interfaces ethernet eth0 hw-id '08:00:27:e9:f6:02'
+# set interfaces ethernet eth2 hw-id '08:00:27:c6:c1:3f'
+# set interfaces ethernet eth3 hw-id '08:00:27:38:bc:3f'
 # set interfaces ethernet eth3 vif 101
 # set interfaces ethernet eth3 vif 102
-
+# set interfaces loopback lo

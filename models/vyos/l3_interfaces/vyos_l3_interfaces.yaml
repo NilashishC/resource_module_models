@@ -17,7 +17,9 @@ DOCUMENTATION: |
   version_added: 2.9
   short_description: Manages L3 interface attributes of VyOS network devices.
   description: This module manages the L3 interface attributes on VyOS network devices.
-  author: Nilashish Chakraborty (@nilashishc)
+  author:
+     - Nilashish Chakraborty (@NilashishC)
+     - Rohit Thakur (@rohitthakur2590)
   options:
     config:
       description: The provided L3 interfaces configuration.
